@@ -48,8 +48,8 @@ python cursor_swebench_tester.py --mode prompt --start 0 --end 10
 ```
 
 This creates:
-- `cursor_results/cursor_prompts.md` - Standardized prompts for each instance
-- `cursor_results/instance_XXX_results.json` - Result templates
+- `data/cursor_results/cursor_prompts.md` - Standardized prompts for each instance
+- `data/cursor_results/instance_XXX_results.json` - Result templates
 
 ### 4. Test with Cursor
 
@@ -57,11 +57,11 @@ For each instance:
 
 1. **Open repository in Cursor**:
    ```bash
-   cursor cursor_workspace/instance_001_repo_name/
+   cursor data/cursor_workspace/instance_001_repo_name/
    ```
 
 2. **Use the prompt**:
-   - Open `cursor_results/cursor_prompts.md`
+   - Open `data/cursor_results/cursor_prompts.md`
    - Find your instance section
    - Copy the prompt and paste it into Cursor's chat
 
@@ -88,7 +88,7 @@ python cursor_swebench_tester.py --mode collect
 # Run SWE-bench evaluation
 python -m swebench.harness.run_evaluation \
     --dataset_name princeton-nlp/SWE-bench_Lite \
-    --predictions_path cursor_results/cursor_predictions.json \
+    --predictions_path data/cursor_results/cursor_predictions.json \
     --max_workers 4 \
     --run_id cursor_evaluation \
     # If on MacOS add the following:
@@ -136,8 +136,8 @@ python cursor_swebench_tester.py --mode setup --start 0 --end 5
 python cursor_swebench_tester.py --mode prompt --start 0 --end 5
 
 # 3. Work on instance 0
-cursor cursor_workspace/instance_000_sympy_sympy/
-# Use prompt from cursor_results/cursor_prompts.md
+cursor data/cursor_workspace/instance_000_sympy_sympy/
+# Use prompt from data/cursor_results/cursor_prompts.md
 # Implement fix with Cursor
 
 # 4. Capture results
@@ -149,7 +149,7 @@ python capture_cursor_results.py --instance 0 --status completed --time 15 --dif
 python cursor_swebench_tester.py --mode collect
 python -m swebench.harness.run_evaluation \
     --dataset_name princeton-nlp/SWE-bench_Lite \
-    --predictions_path cursor_results/cursor_predictions.json \
+    --predictions_path data/cursor_results/cursor_predictions.json \
     --max_workers 4 \
     --run_id cursor_evaluation \
     # For MacOS
@@ -189,7 +189,7 @@ python cursor_swebench_tester.py --mode prompt --start 25 --end 50
 ### Selective Testing
 ```bash
 # Only test specific instance types or repositories
-# Filter by examining cursor_results/cursor_prompts.md
+# Filter by examining data/cursor_results/cursor_prompts.md
 ```
 
 ### Custom Prompts
