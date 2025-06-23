@@ -57,9 +57,9 @@ def main():
                        help="Difficulty rating")
     parser.add_argument("--success", choices=["success", "partial", "failed"], default="",
                        help="Success rating")
-    parser.add_argument("--workspace", default="./cursor_workspace",
+    parser.add_argument("--workspace", default="./data/cursor_workspace",
                        help="Workspace directory")
-    parser.add_argument("--results", default="./cursor_results",
+    parser.add_argument("--results", default="./data/cursor_results",
                        help="Results directory")
     parser.add_argument("--no-diff", action="store_true",
                        help="Don't capture git diff (for failed/skipped instances)")

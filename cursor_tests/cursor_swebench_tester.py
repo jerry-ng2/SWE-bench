@@ -10,7 +10,7 @@ import tempfile
 import time
 
 class CursorSWEBenchTester:
-    def __init__(self, workspace_dir: str = "./cursor_workspace", results_dir: str = "./cursor_results"):
+    def __init__(self, workspace_dir: str = "./data/cursor_workspace", results_dir: str = "./data/cursor_results"):
         self.workspace_dir = Path(workspace_dir)
         self.results_dir = Path(results_dir)
         self.workspace_dir.mkdir(exist_ok=True)
@@ -67,7 +67,7 @@ class CursorSWEBenchTester:
                 with open(instance_dir / 'metadata.json', 'w') as f:
                     json.dump(metadata, f, indent=2)
                     
-                print(f"  ✓ Setup complete: {instance_dir}")
+                print(f"   Setup complete: {instance_dir}")
                 
             except subprocess.CalledProcessError as e:
                 print(f"   Error setting up {instance['instance_id']}: {e}")
@@ -124,7 +124,7 @@ class CursorSWEBenchTester:
                 for file_path in modified_files[:5]:  # Limit to first 5 files
                     f.write(f"- `{file_path}`\n")
                     
-                f.write(f"\n**Record your results in**: `cursor_results/instance_{i:03d}_results.json`\n\n")
+                f.write(f"\n**Record your results in**: `data/cursor_results/instance_{i:03d}_results.json`\n\n")
                 f.write("---\n\n")
                 
         print(f"Prompts generated and saved to: {prompts_file}")
@@ -249,9 +249,9 @@ def main():
                        help="Start index for instances")
     parser.add_argument("--end", type=int, default=None,
                        help="End index for instances")
-    parser.add_argument("--workspace", default="./cursor_workspace",
+    parser.add_argument("--workspace", default="./data/cursor_workspace",
                        help="Workspace directory for repositories")
-    parser.add_argument("--results", default="./cursor_results",
+    parser.add_argument("--results", default="./data/cursor_results",
                        help="Results directory")
     
     args = parser.parse_args()
@@ -260,7 +260,7 @@ def main():
     
     if args.mode == "setup":
         tester.setup_repositories(args.start, args.end)
-        print("\n Setup complete! Repositories are ready in cursor_workspace/")
+        print("\n Setup complete! Repositories are ready in data/cursor_workspace/")
         print("Next step: Run 'python cursor_swebench_tester.py --mode prompt' to generate prompts")
         
     elif args.mode == "prompt":
@@ -268,7 +268,7 @@ def main():
         # Create result templates
         for i in range(args.start, args.end or len(tester.dataset)):
             tester.create_result_template(i)
-        print("\n Prompts generated! Check cursor_results/cursor_prompts.md")
+        print("\n Prompts generated! Check data/cursor_results/cursor_prompts.md")
         print("Next step: Use Cursor with the prompts and record results")
         
     elif args.mode == "collect":
